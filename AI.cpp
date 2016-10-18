@@ -25,6 +25,7 @@ using namespace std;
 AI::AI() {
     possMovesLeft = 100;
     shipFound = false;
+    newHit = false;
     //Initialize MOVE vector with possMovesLeft
     possMoves.resize(100);
     //Fill possMoves with all- possible moves in order
@@ -33,7 +34,8 @@ AI::AI() {
     randomMoves();    
 }
 
-char AI::getLetter(int x){
+char AI::num2Letter(int x){
+    //0-9 == A-J
     switch(x){
         case 0:{
             return 'A';
@@ -60,10 +62,45 @@ char AI::getLetter(int x){
             return 'H';
         }
         case 8:{
-            return 'J';
+            return 'I';
         }
         case 9:{
-            return 'K';
+            return 'J';
+        }
+    }
+}
+
+int AI::letter2Num(char letter){
+    switch(letter){
+        case 'A':{
+            return 0;
+        }
+        case 'B':{
+            return 1;
+        }
+        case 'C':{
+            return 2;
+        }
+        case 'D':{
+            return 3;
+        }
+        case 'E':{
+            return 4;
+        }
+        case 'F':{
+            return 5;
+        }
+        case 'G':{
+            return 6;
+        }
+        case 'H':{
+            return 7;
+        }
+        case 'I':{
+            return 8;
+        }
+        case 'J':{
+            return 9;
         }
     }
 }
@@ -173,5 +210,49 @@ string AI::fire(){
 
 void AI::setHit(string hit){
     hits.push_back(hit);
+    if(!newHit){
+        newHit = true;
+        shipFound = true;
+    }
+}
+
+void AI::moveAI(){
+    //Check if ship is found
+    if(shipFound){
+        //Ship was found during last move, now the fun part...
+        if(newHit){
+            //New ship is found, must 1st find the direction of the ship, Horizontal or Vertical
+            //Randomly choose Horizontal or Vertical
+            srand(time(NULL));  //Set random number generator
+            //Get a random number 0(Horizontal) or 1(Vertical)
+            int tempInt = rand%2;
+            //Get direction based on random number
+            if(tempInt == 0)
+                direction = 'H';
+            else
+                direction = 'V';
+            
+            
+            
+            newHit = false;
+            //Initialize possible direction vector with the 4 possibilities
+            //UP, DOWN, RIGHT, LEFT
+            
+                    
+        }
+    }
+}
+
+void AI::randomDirect(){
+    possDirect.resize(4);
+    
+    //UP
+    //DOWN
+    //LEFT
+    //RIGHT
+    
+    
+    
+        
 }
 

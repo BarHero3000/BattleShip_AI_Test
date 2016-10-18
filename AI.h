@@ -27,16 +27,22 @@ public:
     string fire();
     string getLastMove(){return lastMove;}
     void setHit(string hit);
+    void moveAI();
 private:
     int possMovesLeft;
     vector<string> possMoves;
-    char getLetter(int x);
+    char num2Letter(int x);
     void randomMoves();
     void fillMoves();
     string int2String(int x);
     vector<string> hits;
     string lastMove;
     bool shipFound;
+    bool newHit;
+    vector<string> possDirect;  //Possible direction of the ship
+    void randomDirect();
+    int letter2Num(char letter);
+    char direction;
 
 };
 
