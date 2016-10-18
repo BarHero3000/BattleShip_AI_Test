@@ -24,11 +24,19 @@ public:
     AI();
     AI(const AI& orig);
     //virtual ~AI();
+    string fire();
+    string getLastMove(){return lastMove;}
+    void setHit(string hit);
 private:
     int possMovesLeft;
     vector<string> possMoves;
     char getLetter(int x);
     void randomMoves();
+    void fillMoves();
+    string int2String(int x);
+    vector<string> hits;
+    string lastMove;
+    bool shipFound;
 
 };
 
