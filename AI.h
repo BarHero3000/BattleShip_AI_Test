@@ -25,24 +25,35 @@ public:
     AI(const AI& orig);
     //virtual ~AI();
     string fire();
+    string fire(string position);
     string getLastMove(){return lastMove;}
     void setHit(string hit);
     void moveAI();
-private:
-    int possMovesLeft;
+    
+private:  
     vector<string> possMoves;
-    char num2Letter(int x);
-    void randomMoves();
-    void fillMoves();
-    string int2String(int x);
+    vector<char> possDirect;  //Possible direction of the ship
     vector<string> hits;
+    
+    int possMovesLeft;
     string lastMove;
     bool shipFound;
     bool newHit;
-    vector<string> possDirect;  //Possible direction of the ship
+    string newShipFound;    //Location that the new ship was found
+    char direction; //UP(U), DOWN(D), LEFT(L), RIGHT(R)
+    string nextMove;
+    bool directionFound;
+    bool directionChosen;
+    
+    void randomMoves();
+    void fillMoves();
+    string int2String(int x);
+    char num2Letter(int x);
+    int letter2Num(char letter);    
     void randomDirect();
-    int letter2Num(char letter);
-    char direction;
+    string nextPosition(char direction, string lastHit);
+    
+    
 
 };
 

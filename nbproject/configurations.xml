@@ -37,10 +37,6 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <ccTool>
-          <standard>8</standard>
-          <commandLine>-std=c++11</commandLine>
-        </ccTool>
       </compileType>
       <item path="AI.cpp" ex="false" tool="1" flavor2="0">
       </item>

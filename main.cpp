@@ -22,6 +22,9 @@ using namespace std;
  */
 int main(int argc, char** argv) {
     AI testAI = AI();
+    
+    testAI.setHit("A1");
+    testAI.moveAI();
 
     return 0;
 }

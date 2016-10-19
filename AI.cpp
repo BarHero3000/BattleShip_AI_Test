@@ -12,6 +12,7 @@
  */
 
 #include "AI.h"
+#include <string>
 #include <iostream>
 #include <algorithm>    // std::random_shuffle
 #include <vector>       // std::vector
@@ -26,6 +27,8 @@ AI::AI() {
     possMovesLeft = 100;
     shipFound = false;
     newHit = false;
+    directionFound = false;
+    directionChosen = false;
     //Initialize MOVE vector with possMovesLeft
     possMoves.resize(100);
     //Fill possMoves with all- possible moves in order
@@ -150,7 +153,7 @@ void AI::fillMoves(){
     for(int i = 0; i < 10; i++){
         for(int x = 0; x < 10; x++){
             //Add move to vector (Row letter + Column number)
-            possMoves[(i * 10) + x] = getLetter(i) + int2String(x + 1);
+            possMoves[(i * 10) + x] = num2Letter(i) + int2String(x + 1);
         }
     }
     
@@ -201,18 +204,35 @@ string AI::int2String(int x){
 }
 
 string AI::fire(){
-    string temp;    //temporary string to hold the move and be returned.
-    temp = possMoves[0];    //Assign first move in the vector to temp string.
-    possMoves.erase(0); //Delete the first move in the vector.
-    lastMove = temp;    //Assign move to the lastMove string.
+    string temp;
+    //Take move from the back of the vector
+    temp = possMoves.back();
+    possMoves.pop_back();
+    lastMove = temp;
+    
     return temp;
 }
 
+string AI::fire(string position){
+    string temp;
+    //Find the index of the move
+    int pos = find(possMoves.begin(), possMoves.end(), position) - possMoves.begin();    
+    //Take move from the back of the vector
+    temp = possMoves.at(pos);
+    possMoves.erase(possMoves.begin() + pos);
+    lastMove = temp;
+    
+    return temp;
+}
+
+
+
 void AI::setHit(string hit){
     hits.push_back(hit);
-    if(!newHit){
+    if(newHit == false){
         newHit = true;
         shipFound = true;
+        newShipFound = hit;
     }
 }
 
@@ -221,38 +241,56 @@ void AI::moveAI(){
     if(shipFound){
         //Ship was found during last move, now the fun part...
         if(newHit){
-            //New ship is found, must 1st find the direction of the ship, Horizontal or Vertical
-            //Randomly choose Horizontal or Vertical
-            srand(time(NULL));  //Set random number generator
-            //Get a random number 0(Horizontal) or 1(Vertical)
-            int tempInt = rand%2;
-            //Get direction based on random number
-            if(tempInt == 0)
-                direction = 'H';
-            else
-                direction = 'V';
-            
-            
-            
+            //New ship is found, must 1st find the direction of the ship, Horizontal (Left or Right) or Vertical (Up or Down))
+            randomDirect();
+            //Get next position based on direction chosen. Starting from the end of the vector.
+            string tempPosition = nextPosition(possDirect.back(), newShipFound);
+            fire(tempPosition);
+            possDirect.pop_back();
+              
             newHit = false;
-            //Initialize possible direction vector with the 4 possibilities
-            //UP, DOWN, RIGHT, LEFT
-            
-                    
+            directionChosen = true;
+        }else if(directionChosen){
+            //Move one over from newShipFound
+        }
+        else if (directionFound){
+            //Continue in the direction moving one over from last Move
         }
     }
 }
 
 void AI::randomDirect(){
-    possDirect.resize(4);
-    
-    //UP
-    //DOWN
-    //LEFT
-    //RIGHT
-    
-    
-    
-        
+    //Randomly choose UP(U), DOWN(D), LEFT(L), RIGHT(R)
+    char randArray[4];
+    randArray[0] = 'U';
+    randArray[1] = 'D';
+    randArray[2] = 'L';
+    randArray[3] = 'R';
+    //Randomize the randArray
+    std::srand ( unsigned ( std::time(NULL)));   //So that cards are actually random for every game.
+    std::random_shuffle(&randArray[0], &randArray[3]);
+    //Copy randArray into possible Direction vector
+    for(int i = 0; i < 4; i++){
+        possDirect.push_back(randArray[i]);
+    }
+    //For debugging: Print possDirection
+    for(int i = 0; i < 4; i++){
+        cout << possDirect[i] << " ";
+    }
+    cout << endl;
+
+   //WIP
+   //Then choose a direction. If it works then keep going in that direction.
+   //If it doesn't then change directions based off of starting newHit
+
+
+    //Initialize possible direction vector with the 4 possibilities
+    //UP, DOWN, RIGHT, LEFT  
 }
+
+string nextPosition(char direction, string lastHit){
+    WIP HERE!!!!!
+    
+}
+
 
