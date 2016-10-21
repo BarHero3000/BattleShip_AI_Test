@@ -44,14 +44,21 @@ private:
     string nextMove;
     bool directionFound;
     bool directionChosen;
+    bool shipHitAgain;
     
     void randomMoves();
     void fillMoves();
-    string int2String(int x);
-    char num2Letter(int x);
-    int letter2Num(char letter);    
     void randomDirect();
     string nextPosition(char direction, string lastHit);
+    char switchDirection(char direction);
+    
+    int strLetter2Num(string letter);
+    int strNum2Num(string num);
+    string num2StrLetter(int x);
+    string intNum2StrNum(int num);
+    string int2String(int x);
+    char num2Letter(int x);
+    int letter2Num(char letter);  
     
     
 
