@@ -40,20 +40,7 @@ AI::AI() {
 
 
 
-int AI::letter2Num(char letter){
-    switch(letter){
-        case 'A': return 0;
-        case 'B': return 1;
-        case 'C': return 2;
-        case 'D': return 3;
-        case 'E': return 4;
-        case 'F': return 5;
-        case 'G': return 6;
-        case 'H': return 7;
-        case 'I': return 8;
-        case 'J': return 9;
-    }
-}
+
 
 void AI::randomMoves(){
     //Create temporary move vector and copy vectors
@@ -98,7 +85,6 @@ void AI::fillMoves(){
             cout << endl;
     }
 }
-
 
 string AI::fire(){
     string temp;
@@ -154,11 +140,11 @@ void AI::moveAI(){
                 direction = possDirect.back()
                 //Get next position based on direction chosen. Starting from the end of the vector.
                 position = nextPosition(direction, newShipFound);
+                
+                possDirect.pop_back();  //If going in direction goes off the grid, the remove direction possibility and test and other direction
                 //If going in the chosen direction, then set directOK to true and FIRE!
                 if(position != "Out")
                     directOK = true;
-                else
-                    possDirect.pop_back();  //If going in direction goes off the grid, the remove direction possibility and test and other direction
             }while(!directOK);
             
             fire(position);
@@ -168,7 +154,7 @@ void AI::moveAI(){
         }else if(directionChosen){
             //Move one over from newShipFound
             if(shipHitAgain)
-                
+                fire(nextPosition(direction, lastMove));
         }
         else if (directionFound){
             //Continue in the direction moving one over from last Move
@@ -276,6 +262,7 @@ int AI::strLetter2Num(string letter){
         case "J": return 9;
     }
 }
+
 int AI::strNum2Num(string num){
     switch(num){
         case "0": return 0;
@@ -353,5 +340,20 @@ string AI::int2String(int x){
         case 8: return "8";
         case 9: return "9";
         case 10: return "10";
+    }
+}
+
+int AI::letter2Num(char letter){
+    switch(letter){
+        case 'A': return 0;
+        case 'B': return 1;
+        case 'C': return 2;
+        case 'D': return 3;
+        case 'E': return 4;
+        case 'F': return 5;
+        case 'G': return 6;
+        case 'H': return 7;
+        case 'I': return 8;
+        case 'J': return 9;
     }
 }
