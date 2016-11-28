@@ -24,14 +24,23 @@ public:
     AI();
     AI(const AI& orig);
     //virtual ~AI();
-    string fire();
+    string randomFire();
     string fire(string position);
     string getLastMove(){return lastMove;}
     void setHit(string hit);
+    void setHit(bool wasHit);
     void moveAI();
+    void sunkShip(int shipSize);
+    string moveAI2();
+    void moveResult(bool hit);
+    void moveResult(bool hit, bool sunk, int shipSize);
     
 private:  
+    
+    bool debugging; //Used to display results while debugging
+    
     vector<string> possMoves;
+    vector<string> possShip;   //Possible ship coordinates
     vector<char> possDirect;  //Possible direction of the ship
     vector<string> hits;
     
@@ -39,12 +48,14 @@ private:
     string lastMove;
     bool shipFound;
     bool newHit;
+    bool miss;
     string newShipFound;    //Location that the new ship was found
     char direction; //UP(U), DOWN(D), LEFT(L), RIGHT(R)
     string nextMove;
     bool directionFound;
     bool directionChosen;
     bool shipHitAgain;
+    int key;
     
     void randomMoves();
     void fillMoves();
@@ -56,9 +67,10 @@ private:
     int strNum2Num(string num);
     string num2StrLetter(int x);
     string intNum2StrNum(int num);
-    string int2String(int x);
     char num2Letter(int x);
     int letter2Num(char letter);  
+    int charNum2IntNum(char num);
+    char intNum2CharNum(int num);
     
     
 

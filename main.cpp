@@ -23,8 +23,20 @@ using namespace std;
 int main(int argc, char** argv) {
     AI testAI = AI();
     
-    testAI.setHit("A1");
+    //Initial fire
+    testAI.fire("A1");
+    //State that it was a hit
+    testAI.setHit(true);
+    //AI fires around hit in a random direction
     testAI.moveAI();
+    //State that it was a hit
+    testAI.setHit(true);
+    //AI fires around hit in set direction
+    testAI.moveAI();
+    //State that it was a hit
+    testAI.setHit(true);
+    //State ship sunk
+    testAI.sunkShip(3);
 
     return 0;
 }
